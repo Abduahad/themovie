@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     implementation project(':core')
+    implementation project(':data')
     implementation project(':domain')
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
     implementation 'com.github.kotvertolet:youtube-jextractor:0.3.4'

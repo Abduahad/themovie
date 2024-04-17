@@ -1,7 +1,6 @@
 package com.freecast.thatmovieapp.domain.usecase
 
 import com.freecast.thatmovieapp.domain.core.BaseUseCase
-import com.freecast.thatmovieapp.domain.model.Genre
 import com.freecast.thatmovieapp.domain.model.Movie
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
 import com.freecast.thatmovieapp.domain.repository.Resource

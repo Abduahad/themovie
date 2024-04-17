@@ -26,7 +26,8 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerTrendingMovies"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:name="com.freecast.thatmovieapp.presentation.slider.MoviesSliderFragment"/>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerCategories"
