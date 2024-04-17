@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ThatMovieApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_message_discover">Discover Your</string>
+    <string name="onboarding_message_favorite">Favorite Show</string>
+    <string name="onboarding_message_watch">Watch Now</string>
+    <string name="onboarding_message_description">you can browse and shows by genre, search for specific title, or check out our recommendation</string>
+
+    <string name="main_search">Search Movies…</string>
+
 </resources>
