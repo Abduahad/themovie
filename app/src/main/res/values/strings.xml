@@ -9,5 +9,8 @@
     <string name="onboarding_message_description">you can browse and shows by genre, search for specific title, or check out our recommendation</string>
 
     <string name="main_search">Search Movies…</string>
-
+    <string name="main_popular_movies">Popular</string>
+    <string name="main_trend_movies">Trend</string>
+    <string name="main_upcoming_movies">Upcoming</string>
+    <string name="main_upcoming_top_rated">Top Rated</string>
 </resources>

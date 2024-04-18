@@ -1,19 +1,13 @@
 package com.freecast.thatmovieapp.domain.model
 
+import java.io.Serializable
 
 data class Movie(
-    val adult: Boolean,
-    val backdropPath: String,
-    val genreIds: List<Int>,
+    val backdropPath: String?,
+    val posterPath: String?,
     val id: Int,
-    val originalLanguage: String,
     val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
-    val posterPath: String,
-    val releaseDate: String,
+    val overview: String?,
     val title: String,
-    val video: Boolean,
-    val voteAverage: Double,
-    val voteCount: Int
-)
+    val video: Boolean
+): Serializable

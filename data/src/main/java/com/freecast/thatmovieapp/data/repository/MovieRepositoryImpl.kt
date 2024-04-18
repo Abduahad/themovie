@@ -14,51 +14,6 @@ import kotlinx.coroutines.flow.flow
 
 class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest(), MovieRepository {
     private val language = "en-US"
-    private val defaultPage: Int = 1
-    override suspend fun getNowPlayingMovies(): Flow<Resource<List<Movie>>> {
-        return flow {
-            emit(Resource.Loading(true))
-            val resource = sendRequest(
-                call = { apiService.getNowPlayingMovies(defaultPage, language) },
-                mapper = MovieEntityMapper()
-            )
-            emit(resource)
-        }
-    }
-
-    override suspend fun getPopularMovies(): Flow<Resource<List<Movie>>> {
-        return flow {
-            emit(Resource.Loading(true))
-            val resource = sendRequest(
-                call = { apiService.getPopularMovies(defaultPage, language) },
-                mapper = MovieEntityMapper()
-            )
-            emit(resource)
-        }
-    }
-
-    override suspend fun getTopRatedMovies(): Flow<Resource<List<Movie>>> {
-        return flow {
-            emit(Resource.Loading(true))
-            val resource = sendRequest(
-                call = { apiService.getTopRatedMovies(defaultPage, language) },
-                mapper = MovieEntityMapper()
-            )
-            emit(resource)
-        }
-    }
-
-    override suspend fun getUpcomingMovies(): Flow<Resource<List<Movie>>> {
-        return flow {
-            emit(Resource.Loading(true))
-            val resource = sendRequest(
-                call = { apiService.getUpcomingMovies(defaultPage, language) },
-                mapper = MovieEntityMapper()
-            )
-            emit(resource)
-        }
-    }
-
     override suspend fun getGenres(): Flow<Resource<List<Genre>>> {
         return flow {
             emit(Resource.Loading(true))
@@ -67,6 +22,31 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
                 mapper = GenreEntityMapper()
             )
             emit(resource)
+            emit(Resource.Loading(false))
+        }
+    }
+
+    override suspend fun getMovies(endpoint: String): Flow<Resource<List<Movie>>> {
+        return flow {
+            emit(Resource.Loading(true))
+            val resource = sendRequest(
+                call = { apiService.getMovies(endpoint) },
+                mapper = MovieEntityMapper()
+            )
+            emit(resource)
+            emit(Resource.Loading(false))
+        }
+    }
+
+    override suspend fun getMoviesByGenreId(genreId: Int): Flow<Resource<List<Movie>>> {
+        return flow {
+            emit(Resource.Loading(true))
+            val resource = sendRequest(
+                call = { apiService.getMoviesByGenre(genreId) },
+                mapper = MovieEntityMapper()
+            )
+            emit(resource)
+            emit(Resource.Loading(false))
         }
     }
 

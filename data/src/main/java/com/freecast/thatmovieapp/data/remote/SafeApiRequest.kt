@@ -17,6 +17,9 @@ abstract class SafeApiRequest {
         } catch (e: BaseException) {
             Resource.Error(e)
         }
+        catch (e: Exception) {
+            Resource.Error(BaseException(0, e.message ?: "Unknown error"))
+        }
     }
 }
 

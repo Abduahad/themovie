@@ -40,6 +40,7 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':domain')
+   // implementation 'org.jetbrains.kotlinx:kotlinx-parcelize-runtime:1.9.23'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
     implementation 'com.github.kotvertolet:youtube-jextractor:0.3.4'
     implementation 'com.google.android.exoplayer:exoplayer:2.19.1'

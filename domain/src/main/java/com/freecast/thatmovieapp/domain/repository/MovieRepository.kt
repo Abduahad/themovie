@@ -5,10 +5,7 @@ import com.freecast.thatmovieapp.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    suspend fun getNowPlayingMovies(): Flow<Resource<List<Movie>>>
-    suspend fun getPopularMovies(): Flow<Resource<List<Movie>>>
-    suspend fun getTopRatedMovies(): Flow<Resource<List<Movie>>>
-    suspend fun getUpcomingMovies(): Flow<Resource<List<Movie>>>
     suspend fun getGenres(): Flow<Resource<List<Genre>>>
-
+    suspend fun getMovies(endpoint:String): Flow<Resource<List<Movie>>>
+    suspend fun getMoviesByGenreId(genreId:Int): Flow<Resource<List<Movie>>>
 }

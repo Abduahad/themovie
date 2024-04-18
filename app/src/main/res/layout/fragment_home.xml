@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.main.HomeFragment">
+    tools:context=".HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,15 +23,34 @@
                 android:textColorHint="@color/white" />
 
             <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerNowPlayingMovies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="160dp" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerTopRatedMovies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerGenres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="16dp" />
+
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerTrendingMovies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="com.freecast.thatmovieapp.presentation.slider.MoviesSliderFragment"/>
+                android:minHeight="200dp" />
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerCategories"
+                android:id="@+id/fragmentContainerUpcomingMovies"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="200dp" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
