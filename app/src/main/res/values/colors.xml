@@ -13,4 +13,6 @@
     <color name="primary_color">#1F1D2B</color>
     <color name="dark_blue">#252836</color>
     <color name="selected_genre_color">#383C51</color>
+    <color name="detail_secondary_color">#BCBCBC</color>
+    <color name="detail_line_color">#515151</color>
 </resources>

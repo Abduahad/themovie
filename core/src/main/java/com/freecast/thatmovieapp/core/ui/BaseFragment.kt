@@ -1,54 +1,30 @@
 package com.freecast.thatmovieapp.core.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
-abstract class BaseFragment(@LayoutRes protected val layoutResID: Int) : Fragment(layoutResID) {
+abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes layoutResID: Int, protected val mVModelClass: Class<VM>) : BaseFragmentWithoutVM(layoutResID) {
+    protected lateinit var viewModel: VM
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(this)[mVModelClass]
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onInitViews()
+        viewModel.errorHandler.observe(viewLifecycleOwner, {
+            //showToast(it)
+        })
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            isLoading(it)
+        })
         onInitListeners()
         onInitObservers()
     }
 
-    protected fun <T : View> findViewByID(@IdRes id: Int): T {
-        return requireView().findViewById(id)
-    }
-
-    protected fun transaction(
-        containerId: Int,
-        fragment: Fragment,
-        addToBackStack: Boolean = false,
-        tag: String? = null,
-        isReplace: Boolean = true
-    ) {
-        activity?.let {
-            it.supportFragmentManager.beginTransaction().apply {
-                if (isReplace) {
-                    replace(containerId, fragment, tag)
-                } else {
-                    add(containerId, fragment, tag)
-                }
-                if (addToBackStack) {
-                    addToBackStack(tag)
-                }
-                commit()
-            }
-        }
-
-    }
-
-    protected fun showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-        context?.let {
-            Toast.makeText(it, message, duration).show()
-        }
-    }
-
-    protected open fun onInitViews() = Unit
-    protected open fun onInitObservers() = Unit
-    protected open fun onInitListeners() = Unit
 }

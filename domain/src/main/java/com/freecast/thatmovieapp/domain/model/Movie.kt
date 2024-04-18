@@ -1,6 +1,5 @@
 package com.freecast.thatmovieapp.domain.model
 
-import java.io.Serializable
 
 data class Movie(
     val backdropPath: String?,
@@ -10,4 +9,4 @@ data class Movie(
     val overview: String?,
     val title: String,
     val video: Boolean
-): Serializable
+)

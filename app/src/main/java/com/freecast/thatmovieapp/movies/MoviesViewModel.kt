@@ -12,14 +12,19 @@ import com.freecast.thatmovieapp.data.repository.MovieRepositoryImpl
 import com.freecast.thatmovieapp.domain.model.Movie
 import com.freecast.thatmovieapp.domain.repository.Resource
 import com.freecast.thatmovieapp.domain.usecase.GetMoviesUseCase
+import com.freecast.thatmovieapp.util.Constants
 
-open class MoviesViewModel(private var endpoint: String, val title: String) : BaseViewModel() {
+open class MoviesViewModel() : BaseViewModel() {
     private val useCase: GetMoviesUseCase = GetMoviesUseCase(MovieRepositoryImpl(MovieClient.apiService))
-
+    var endPoint: String = Constants.MoviesEndPoint.POPULAR
+    var title: String = ""
+    var movieId: Int = 0
     fun fetchMovies(): LiveData<List<Movie>> {
         val result: MutableLiveData<List<Movie>> = MutableLiveData()
         launchCoroutine {
-            useCase.execute(endpoint).collect {
+
+            val response = if (movieId > 0) useCase.execute("movie/${movieId}/similar") else useCase.execute(endPoint)
+            response.collect {
                 when (it) {
                     is Resource.Loading -> {
                         _isLoading.postValue(it.isLoading)
@@ -58,10 +63,6 @@ open class MoviesViewModel(private var endpoint: String, val title: String) : Ba
             }
         }
         return result
-    }
-
-    fun setEndpoint(endpoint: String) {
-        this.endpoint = endpoint
     }
 
     private fun getPageTransformer(): CompositePageTransformer {

@@ -4,41 +4,31 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
+import com.freecast.thatmovieapp.detail.DetailMovieFragment
 import com.freecast.thatmovieapp.domain.model.Movie
 import com.freecast.thatmovieapp.movies.MoviesViewModel
-import com.freecast.thatmovieapp.movies.MoviesViewModelFactory
 
-abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: Int, private val mVModelClass: Class<VM>) : BaseFragment(layoutResID), View.OnClickListener {
+abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: Int, mVModelClass: Class<VM>) : BaseFragment<VM>(layoutResID, mVModelClass), View.OnClickListener {
     protected val ENDPOINT = "ENDPOINT"
     protected val TITLE = "TITLE"
-    protected lateinit var viewModel: VM
-
+    protected val MOVIE_ID = "MovieID"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var endPoint: String = "popular"
-        var title: String = ""
-
+        arguments?.let {
+            viewModel.movieId = it.getInt(MOVIE_ID)
+        }
         arguments?.getString(ENDPOINT)?.let {
-            endPoint = it
+            viewModel.endPoint = it
         }
         arguments?.getString(TITLE)?.let {
-            title = it
+            viewModel.title = it
         }
-        viewModel = ViewModelProvider(this, MoviesViewModelFactory(endPoint, title))[mVModelClass]
     }
 
     override fun onInitObservers() {
         super.onInitObservers()
-        viewModel.errorHandler.observe(viewLifecycleOwner, {
-            //showToast(it)
-        })
-
-        viewModel.isLoading.observe(this, Observer {
-            isLoading(it)
-        })
-
         fetchMovies()
     }
 
@@ -55,9 +45,15 @@ abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: 
     }
 
     override fun onClick(v: View?) {
-
+        v?.let {
+            transaction(
+                R.id.fragment_container,
+                DetailMovieFragment.newInstance(it.tag as Int),
+                true,
+                isReplace = false
+            )
+        }
     }
 
-    abstract fun isLoading(isLoading: Boolean)
     abstract fun initMovies(movies: List<Movie>)
 }

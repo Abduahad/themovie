@@ -27,7 +27,7 @@ class SliderFragment : BaseMoviesFragment<SliderViewModel>(R.layout.fragment_mov
     }
 
     override fun initMovies(movies: List<Movie>) {
-        viewPager2.adapter = SliderAdapter(movies, viewPager2)
+        viewPager2.adapter = SliderAdapter(movies, viewPager2,this)
         viewPager2.getChildAt(0).overScrollMode = ViewPager2.OVER_SCROLL_NEVER
         viewPager2.currentItem = 1
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

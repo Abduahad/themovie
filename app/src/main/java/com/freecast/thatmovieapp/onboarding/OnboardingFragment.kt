@@ -2,11 +2,11 @@ package com.freecast.thatmovieapp.onboarding
 
 import android.view.View
 import com.freecast.thatmovieapp.R
-import com.freecast.thatmovieapp.core.ui.BaseFragment
 import com.freecast.thatmovieapp.HomeFragment
+import com.freecast.thatmovieapp.core.ui.BaseFragmentWithoutVM
 import com.google.android.material.button.MaterialButton
 
-class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding), View.OnClickListener {
+class OnboardingFragment : BaseFragmentWithoutVM(R.layout.fragment_onboarding), View.OnClickListener {
 
     override fun onInitViews() {
         super.onInitViews()
@@ -21,7 +21,4 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding), View.OnCl
         )
     }
 
-    companion object {
-        fun newInstance() = OnboardingFragment()
-    }
 }

@@ -29,7 +29,10 @@ class MoviesAdapter(
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.bind(movies[position])
-        holder.itemView.setOnClickListener(onClickListener)
+        holder.itemView.apply {
+            setOnClickListener(onClickListener)
+            tag = movies[position].id
+        }
     }
 
     override fun getItemCount(): Int {
@@ -53,7 +56,13 @@ class MoviesAdapter(
                     return false
                 }
 
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     progressBar.visibility = View.GONE
                     return false
                 }

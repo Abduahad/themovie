@@ -1,6 +1,8 @@
 package com.freecast.thatmovieapp.data.repository
 
 
+import MovieDetail
+import MovieDetailEntityMapper
 import com.freecast.thatmovieapp.data.mapper.GenreEntityMapper
 import com.freecast.thatmovieapp.data.mapper.MovieEntityMapper
 import com.freecast.thatmovieapp.domain.model.Genre
@@ -44,6 +46,18 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
             val resource = sendRequest(
                 call = { apiService.getMoviesByGenre(genreId) },
                 mapper = MovieEntityMapper()
+            )
+            emit(resource)
+            emit(Resource.Loading(false))
+        }
+    }
+
+    override suspend fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetail>> {
+        return flow {
+            emit(Resource.Loading(true))
+            val resource = sendRequest(
+                call = { apiService.getMovieDetail(movieId) },
+                mapper = MovieDetailEntityMapper()
             )
             emit(resource)
             emit(Resource.Loading(false))

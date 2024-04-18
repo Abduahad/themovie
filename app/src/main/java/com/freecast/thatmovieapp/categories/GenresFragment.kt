@@ -12,16 +12,10 @@ import com.freecast.thatmovieapp.domain.model.Genre
 import com.freecast.thatmovieapp.movies.OnRefreshMoviesListener
 import com.freecast.thatmovieapp.util.Constants
 
-class GenresFragment : BaseFragment(R.layout.fragment_genres), View.OnClickListener {
+class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres,GenresViewModel::class.java), View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: GenresViewModel
     private lateinit var adapter: GenresAdapter
     var onRefreshMoviesListener: OnRefreshMoviesListener? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this)[GenresViewModel::class.java]
-    }
 
     override fun onInitViews() {
         super.onInitViews()

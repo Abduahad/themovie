@@ -15,13 +15,11 @@ import com.freecast.thatmovieapp.core.BaseMoviesFragment
 class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_movies, MoviesViewModel::class.java), OnRefreshMoviesListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var linearLayout: LinearLayout
     private lateinit var textView: TextView
     private val adapter: MoviesAdapter = MoviesAdapter(this)
     override fun onInitViews() {
         super.onInitViews()
         recyclerView = findViewByID(R.id.recyclerView)
-        linearLayout = findViewByID(R.id.linearLayout)
         progressBar = findViewByID(R.id.progressBar)
         textView = findViewByID(R.id.textViewTitle)
         textView.text = viewModel.title
@@ -32,10 +30,10 @@ class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_mov
     override fun isLoading(isLoading: Boolean) {
         if (isLoading) {
             progressBar.visibility = View.VISIBLE
-            linearLayout.visibility = View.INVISIBLE
+            recyclerView.visibility = View.INVISIBLE
         } else {
             progressBar.visibility = View.INVISIBLE
-            linearLayout.visibility = View.VISIBLE
+            recyclerView.visibility = View.VISIBLE
         }
     }
 
@@ -52,11 +50,19 @@ class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_mov
                     putString(TITLE, title)
                 }
             }
+
+        fun newInstance(movieId: Int, title: String) =
+            MoviesFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(MOVIE_ID, movieId)
+                    putString(TITLE, title)
+                }
+            }
     }
 
     override fun onLoadMovies(title: String, endpoint: String) {
         textView.text = title
-        viewModel.setEndpoint(endpoint)
+        viewModel.endPoint = endpoint
         fetchMovies()
     }
 

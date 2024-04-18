@@ -44,4 +44,11 @@
         <item name="android:padding">12dp</item>
         <item name="android:layout_margin">16dp</item>
     </style>
+
+    <style name="ImageViewDetail">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:tint">@color/detail_secondary_color</item>
+        <item name="android:layout_marginEnd">4dp</item>
+    </style>
 </resources>
