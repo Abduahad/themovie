@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.categories
+package com.freecast.thatmovieapp.presentation.genres
 
 import android.view.LayoutInflater
 import android.view.View

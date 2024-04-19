@@ -6,9 +6,9 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
-import com.freecast.thatmovieapp.detail.DetailMovieFragment
+import com.freecast.thatmovieapp.presentation.detail.DetailMovieFragment
 import com.freecast.thatmovieapp.domain.model.Movie
-import com.freecast.thatmovieapp.movies.MoviesViewModel
+import com.freecast.thatmovieapp.presentation.movies.MoviesViewModel
 
 abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: Int, mVModelClass: Class<VM>) : BaseFragment<VM>(layoutResID, mVModelClass), View.OnClickListener {
     protected val ENDPOINT = "ENDPOINT"
@@ -33,15 +33,15 @@ abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: 
     }
 
     protected fun fetchMovies() {
-        viewModel.fetchMovies().observe(this, Observer {
+        viewModel.fetchMovies().observe(this) {
             initMovies(it)
-        })
+        }
     }
 
     protected fun fetchMoviesByGenreId(genreId: Int) {
-        viewModel.fetchMoviesByGenreId(genreId).observe(this, Observer {
+        viewModel.fetchMoviesByGenreId(genreId).observe(this) {
             initMovies(it)
-        })
+        }
     }
 
     override fun onClick(v: View?) {

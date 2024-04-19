@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.movies
+package com.freecast.thatmovieapp.presentation.movies
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater

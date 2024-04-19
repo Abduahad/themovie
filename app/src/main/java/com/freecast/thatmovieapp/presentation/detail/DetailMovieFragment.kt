@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.detail
+package com.freecast.thatmovieapp.presentation.detail
 
 
 import android.graphics.drawable.Drawable
@@ -30,7 +30,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
-import com.freecast.thatmovieapp.movies.MoviesFragment
+import com.freecast.thatmovieapp.presentation.movies.MoviesFragment
 import com.freecast.thatmovieapp.util.Constants
 
 

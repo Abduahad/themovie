@@ -1,13 +1,13 @@
-package com.freecast.thatmovieapp
+package com.freecast.thatmovieapp.presentation
 
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import com.freecast.thatmovieapp.categories.GenresFragment
+import com.freecast.thatmovieapp.R
+import com.freecast.thatmovieapp.presentation.genres.GenresFragment
 import com.freecast.thatmovieapp.core.ui.BaseFragmentWithoutVM
-import com.freecast.thatmovieapp.movies.MoviesFragment
-import com.freecast.thatmovieapp.slider.SliderFragment
+import com.freecast.thatmovieapp.presentation.movies.MoviesFragment
+import com.freecast.thatmovieapp.presentation.slider.SliderFragment
 import com.freecast.thatmovieapp.util.Constants
 
 class HomeFragment : BaseFragmentWithoutVM(R.layout.fragment_home) {

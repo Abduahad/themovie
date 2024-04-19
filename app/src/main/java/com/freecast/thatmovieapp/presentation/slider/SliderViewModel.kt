@@ -1,8 +1,8 @@
-package com.freecast.thatmovieapp.slider
+package com.freecast.thatmovieapp.presentation.slider
 
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.freecast.thatmovieapp.movies.MoviesViewModel
+import com.freecast.thatmovieapp.presentation.movies.MoviesViewModel
 
 class SliderViewModel() : MoviesViewModel() {
     fun getPageTransformer(): CompositePageTransformer {

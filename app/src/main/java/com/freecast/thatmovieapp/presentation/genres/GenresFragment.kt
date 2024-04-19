@@ -1,18 +1,16 @@
-package com.freecast.thatmovieapp.categories
+package com.freecast.thatmovieapp.presentation.genres
 
 
-import android.content.Context
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
 import com.freecast.thatmovieapp.domain.model.Genre
-import com.freecast.thatmovieapp.movies.OnRefreshMoviesListener
+import com.freecast.thatmovieapp.presentation.movies.OnRefreshMoviesListener
 import com.freecast.thatmovieapp.util.Constants
 
-class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres,GenresViewModel::class.java), View.OnClickListener {
+class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, GenresViewModel::class.java), View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GenresAdapter
     var onRefreshMoviesListener: OnRefreshMoviesListener? = null

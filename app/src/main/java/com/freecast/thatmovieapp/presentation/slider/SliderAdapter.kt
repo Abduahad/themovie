@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.slider
+package com.freecast.thatmovieapp.presentation.slider
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ import com.freecast.thatmovieapp.core.ui.BaseViewHolder
 import com.freecast.thatmovieapp.domain.model.Movie
 import com.freecast.thatmovieapp.util.Constants
 
-class SliderAdapter(private val sliders: List<Movie>, private val viewPager2: ViewPager2, private val onClickListener: OnClickListener) : BaseAdapter<Movie, SliderAdapter.ViewHolder>() {
+class SliderAdapter(private val sliders: List<Movie>, private val onClickListener: OnClickListener) : BaseAdapter<Movie, SliderAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(vg: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(vg.context).inflate(R.layout.item_slider, vg, false))
@@ -35,9 +35,6 @@ class SliderAdapter(private val sliders: List<Movie>, private val viewPager2: Vi
         vh.itemView.apply {
             setOnClickListener(onClickListener)
             tag = sliders[position].id
-        }
-        if (position == sliders.size - 2) {
-            //  viewPager2.post(sliders[position])
         }
     }
 

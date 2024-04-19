@@ -1,9 +1,8 @@
-package com.freecast.thatmovieapp.movies
+package com.freecast.thatmovieapp.presentation.movies
 
 
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager

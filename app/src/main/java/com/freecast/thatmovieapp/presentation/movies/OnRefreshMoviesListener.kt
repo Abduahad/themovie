@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.movies
+package com.freecast.thatmovieapp.presentation.movies
 
 interface OnRefreshMoviesListener {
     fun onLoadMovies(title: String, endpoint:String)
