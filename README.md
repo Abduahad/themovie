@@ -2,70 +2,39 @@
 
 - Last updated: 2023-05-02
 
-## General Info
+# What's Done
 
-Legacy code can be a significant challenge for development teams, and at FreeCast, we are no exception. To overcome this challenge, we believe in hiring top-tier developers who can bring fresh perspectives and innovative ideas to the table.
+The project was developed using the following technological stacks:
 
-As part of our rigorous hiring process, we will present you with a real-world challenge that we are currently facing. This challenge will provide you with an opportunity to demonstrate your problem-solving skills and showcase your expertise in dealing with legacy code and layout problems.
-
-If you are up for the challenge and ready to make a difference, we encourage you to apply to our team at FreeCast. Here, we believe that the best solutions arise from collaboration and diverse perspectives. We do not discriminate against any candidate in our hiring process. We welcome candidates from all backgrounds and encourage a diverse pool of applicants to apply.
-
-Here you'll find a very basic app, with no set architecture, doing some network calls with one trailer and one recycler view.
-
-You will need to get a free API Key from the TheMovieDB to complete this challenge.
-
-You’re free to change everything (dependencies, gradle, classes, modules, and/or anything else you want).
-
-## The Challenge
-
-Refactor the existing app so it allows the user to:
-
-- [ ] Watch one random trailer from any source (this can be a static link)
-- [ ] See trending movies
-- [ ] See the top series for a certain category that will be chosen by the user
-- [ ] Click on any item (TV Show or Movie) and see the details screen with related data
-
-The layout must have:
-
-- [ ] A trailer (using [ExoPlayer](https://developer.android.com/guide/topics/media/exoplayer))
-- [ ] The two lists as described above
-- [ ] Poster, rating, description, release date, runtime, genres and title on the details screen
-
-What do we expect?
-
-- [ ] A lightweight and intuitive layout
-- [ ] Good code practices
-- [ ] Good architecture
-- [ ] Use of SOLID principles
-- [ ] Unit tests
-
-## Required
-
-- MVVM
+- MVVM + Clean Architecture pattern with a focus on modularity.
 - Kotlin
 - Retrofit
-- OkHttp with LoggingInterceptor
-- Error handling
+- OkHttp
+- Koin DI
+- Glide for image processing
+- Error handling.
 
-The project must compile for the entry to be considered.
+In accordance with the requirements, it was decided to use the old ExoPlayer. However, since ExoPlayer does not support direct video loading from YouTube, it needs to be replaced with the YouTube Player.
 
-## Avoid
+# What Could Have Been Done with More Time:
 
-- Do _not_ use Jetpack Compose
-- Do _not_ replace ExoPlayer with another player
+- Fully cover the UI and module code with tests to ensure a higher level of reliability and stability of the application.
+- Optimize the main menu for more dynamic, flexible, and faster loading, improving the user experience.
+- Expand the functionality of the application by adding new features and improving existing ones.
+- In the future, with more functionality, it would be good to divide the modules by features for easier maintenance and scalability.
+- I didn't have time to refactor some parts of the code, such as DetailMovieFragment, to improve its readability and maintainability.
+- Could have integrated useful tools such as Firebase Crashlytics for real-time monitoring and error tracking.
+- Use NDK for more secure storage of keys and other confidential data in the application.
+- Develop an advanced error handler for more efficient management and display of errors in the application.
 
-## Preferred
 
-For those looking to go above and beyond:
+# The project consists of 3 screens:
 
-- UI tests
-- Clean Architecture
+- Onboarding
+- Main Screen
+- Detailed Movie Information
+The design was sourced from several different origins.
 
-## Instructions
+[Information Mobile App Design](https://www.figma.com/file/I62gWERAcJhZaJJaYWUAzn/Movie-Streaming-App-(Community)?type=design&node-id=0-1&mode=design&t=ZcuZBj31kT1OcmBL-0)
 
-1. Fork this project (do _not_ clone it directly)
-2. Work on the project and commit as you normally would
-3. Add a README file with what you've done and what you could have done if you had more time
-4. Open a PR targeting our challenge repository
-
-API Docs: https://developers.themoviedb.org/3/getting-started/introduction
+![AppDesign](AppScreens.jpg)

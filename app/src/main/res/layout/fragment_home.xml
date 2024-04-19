@@ -12,11 +12,12 @@
 
         <EditText
             style="@style/EditText.Rounded"
-            android:drawableStart="@drawable/search"
+            android:drawableStart="@drawable/ic_search"
             android:drawableEnd="@drawable/ic_microphone"
             android:drawablePadding="8dp"
             android:enabled="false"
             android:hint="@string/main_search"
+            android:fontFamily="@font/roboto_light"
             android:textColorHint="@color/white" />
 
         <androidx.fragment.app.FragmentContainerView

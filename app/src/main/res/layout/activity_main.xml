@@ -10,5 +10,5 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.freecast.thatmovieapp.presentation.HomeFragment"/>
+        android:name="com.freecast.thatmovieapp.presentation.onboarding.OnboardingFragment"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

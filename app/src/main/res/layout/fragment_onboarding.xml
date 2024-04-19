@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,11 @@
     tools:context=".presentation.onboarding.OnboardingFragment">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +46,8 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/onboarding_message_discover"
                 android:textColor="@color/white"
-                android:textSize="27sp" />
+                android:textSize="27sp"
+                android:fontFamily="@font/roboto_medium"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,6 +56,7 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/onboarding_message_favorite"
                 android:textColor="@color/orange"
+                android:fontFamily="@font/roboto_medium"
                 android:textSize="27sp" />
 
             <TextView
@@ -60,6 +66,7 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/onboarding_message_watch"
                 android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
                 android:textSize="27sp" />
 
             <TextView
@@ -70,16 +77,18 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/onboarding_message_description"
                 android:textColor="@color/gray"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="17sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/MaterialButton.Rounded"
-                android:layout_marginTop="8dp"
-                android:text="@string/onboarding_get_started"
-                android:backgroundTint="@color/orange"/>
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button"
+        style="@style/MaterialButton.Rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:text="@string/onboarding_get_started"
+        android:fontFamily="@font/roboto_regular"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

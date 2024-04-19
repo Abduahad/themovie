@@ -15,8 +15,8 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="12dp"
         android:textColor="@color/yellow"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="18sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
