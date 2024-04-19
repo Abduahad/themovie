@@ -10,5 +10,4 @@ class GetDetailMovieUseCase(private val movieRepository: MovieRepository) : Base
     override suspend fun execute(movieId: Int): Flow<Resource<MovieDetail>> {
         return movieRepository.getMovieDetail(movieId)
     }
-
 }

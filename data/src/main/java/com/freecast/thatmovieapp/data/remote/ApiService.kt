@@ -4,6 +4,7 @@ package com.freecast.thatmovieapp.data.remote
 import com.freecast.thatmovieapp.data.model.GenreResult
 import com.freecast.thatmovieapp.data.model.MovieDetailEntity
 import com.freecast.thatmovieapp.data.model.MovieResult
+import com.freecast.thatmovieapp.data.model.MovieVideoResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,4 +23,7 @@ interface ApiService {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetail(@Path("movie_id") movieId: Int): Response<MovieDetailEntity>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getMovieVideos(@Path("movie_id") movieId: Int): Response<MovieVideoResult>
 }

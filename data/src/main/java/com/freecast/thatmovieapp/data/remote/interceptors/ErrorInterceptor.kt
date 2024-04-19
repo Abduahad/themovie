@@ -3,9 +3,11 @@ package com.freecast.thatmovieapp.data.remote.interceptors
 import com.freecast.thatmovieapp.data.remote.exceptions.BadException
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
 import com.freecast.thatmovieapp.data.remote.exceptions.ServerException
+import com.google.gson.JsonObject
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.IOException
+import org.json.JSONObject
 
 class ErrorInterceptor : Interceptor {
     @Throws(IOException::class)
@@ -14,15 +16,21 @@ class ErrorInterceptor : Interceptor {
         val response = chain.proceed(request)
         if (!response.isSuccessful) {
             when (response.code) {
-                400 -> throw BadException(400,response.message)
-                401 -> throw BadException(401,response.message)
-                403 -> throw BadException(403,response.message)
-                404 -> throw BadException(404,response.message)
-                500 -> throw ServerException(500,response.message)
-                else -> throw BaseException(response.code,response.message)
+                400, 401, 403, 404 -> throw BadException(response.code, getErrorMessage(response))
+                500, 502, 503 -> throw ServerException(response.code, null)
+                else -> throw BaseException(response.code, response.message)
             }
         }
-
         return response
+    }
+
+    private fun getErrorMessage(response: Response): String? {
+        if (response.body != null) {
+            val jsonObject: JSONObject = JSONObject(response.body!!.string())
+            if (jsonObject.has("status_message")) {
+                return jsonObject.getString("status_message")
+            }
+        }
+        return null
     }
 }

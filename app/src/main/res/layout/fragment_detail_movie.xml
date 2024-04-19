@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color"
@@ -15,11 +16,25 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <FrameLayout
+                android:id="@+id/frameLayoutPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="center" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:scaleType="center" />
+
+                <androidx.media3.ui.PlayerView
+                    android:id="@+id/playerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <ProgressBar
                 android:id="@+id/progressBarPoster"

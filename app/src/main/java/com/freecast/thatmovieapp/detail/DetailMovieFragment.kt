@@ -2,6 +2,7 @@ package com.freecast.thatmovieapp.detail
 
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,19 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.OptIn
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import androidx.media3.common.util.Log
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.HttpDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.ui.PlayerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -19,7 +33,8 @@ import com.freecast.thatmovieapp.core.ui.BaseFragment
 import com.freecast.thatmovieapp.movies.MoviesFragment
 import com.freecast.thatmovieapp.util.Constants
 
-class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment_detail_movie, DetailMovieViewModel::class.java) {
+
+class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment_detail_movie, DetailMovieViewModel::class.java), View.OnClickListener {
     private lateinit var progressBar: ProgressBar
     private lateinit var progressBarPoster: ProgressBar
     private lateinit var textViewTitle: TextView
@@ -32,6 +47,9 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
     private lateinit var textViewDuration: TextView
     private lateinit var textViewRating: TextView
     private lateinit var imageView: ImageView
+    private lateinit var playerView: PlayerView
+    private lateinit var player: ExoPlayer
+    private lateinit var frameLayoutPlayer: FrameLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,7 +70,11 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
         linearLayoutGenres = findViewByID(R.id.linearLayoutGenres)
         linearLayout = findViewByID(R.id.linearLayout)
         imageView = findViewByID(R.id.imageView)
+        playerView = findViewByID(R.id.playerView)
+        player = ExoPlayer.Builder(requireContext()).build()
+        playerView.player = player
         fragmentContainerRelated = findViewByID(R.id.fragmentContainerRelated)
+        frameLayoutPlayer = findViewByID(R.id.frameLayoutPlayer)
         transaction(R.id.fragmentContainerRelated, MoviesFragment.newInstance(viewModel.movieId, getString(R.string.detail_similar_movies)), false, isReplace = true)
     }
 
@@ -73,13 +95,24 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
         }
     }
 
+    override fun onInitListeners() {
+        super.onInitListeners()
+        imageView.setOnClickListener(this)
+        player.addListener(object : Player.Listener {
+            @OptIn(UnstableApi::class)
+            override fun onPlayerError(error: PlaybackException) {
+                Log.e("PlayerError", "An error occurred during playback", error)
+            }
+        })
+    }
+
     override fun isLoading(isLoading: Boolean) {
         if (isLoading) {
             progressBar.visibility = View.VISIBLE
-            linearLayout.visibility = View.INVISIBLE
+            frameLayoutPlayer.visibility = View.INVISIBLE
         } else {
             progressBar.visibility = View.INVISIBLE
-            linearLayout.visibility = View.VISIBLE
+            frameLayoutPlayer.visibility = View.VISIBLE
         }
     }
 
@@ -111,7 +144,34 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
                 return false
             }
         }).into(imageView)
+    }
 
+    //ToDo:ExoPlayer does not directly support playing YouTube videos due to YouTube's terms of service. YouTube provides its own API for playing videos, which is the YouTube Android Player API.
+    @OptIn(UnstableApi::class)
+    private fun initializePlayer(videoUri: String) {
+        val httpDataSourceFactory: HttpDataSource.Factory = DefaultHttpDataSource.Factory()
+            .setUserAgent(Util.getUserAgent(requireContext(), "app-name"))
+        val mediaSourceFactory = ProgressiveMediaSource.Factory(httpDataSourceFactory)
+        val mediaSource: MediaSource = mediaSourceFactory.createMediaSource(MediaItem.fromUri(Uri.parse("https://dl.dropbox.com/s/5y0ma68jhp0731t/sample.mp4")))
+
+        player.setMediaSource(mediaSource)
+        player.prepare()
+        player.play()
+
+    }
+
+    override fun onClick(v: View?) {
+        v?.let {
+            when (it.id) {
+                R.id.imageView -> {
+                    imageView.visibility = View.GONE
+                    playerView.visibility = View.VISIBLE
+                    viewModel.fetchMovieVideo().observe(viewLifecycleOwner) {
+                        initializePlayer(Constants.BASE_VIDEO_URL + it.key)
+                    }
+                }
+            }
+        }
     }
 
     companion object {

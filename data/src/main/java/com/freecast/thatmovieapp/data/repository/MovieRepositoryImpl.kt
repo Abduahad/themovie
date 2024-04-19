@@ -5,10 +5,12 @@ import MovieDetail
 import MovieDetailEntityMapper
 import com.freecast.thatmovieapp.data.mapper.GenreEntityMapper
 import com.freecast.thatmovieapp.data.mapper.MovieEntityMapper
+import com.freecast.thatmovieapp.data.mapper.MovieVideoEntityMapper
 import com.freecast.thatmovieapp.domain.model.Genre
 import com.freecast.thatmovieapp.domain.model.Movie
 import com.freecast.thatmovieapp.data.remote.ApiService
 import com.freecast.thatmovieapp.data.remote.SafeApiRequest
+import com.freecast.thatmovieapp.domain.model.MovieVideo
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
 import com.freecast.thatmovieapp.domain.repository.Resource
 import kotlinx.coroutines.flow.Flow
@@ -58,6 +60,18 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
             val resource = sendRequest(
                 call = { apiService.getMovieDetail(movieId) },
                 mapper = MovieDetailEntityMapper()
+            )
+            emit(resource)
+            emit(Resource.Loading(false))
+        }
+    }
+
+    override suspend fun getMovieVideos(movieId: Int): Flow<Resource<List<MovieVideo>>> {
+        return flow {
+            emit(Resource.Loading(true))
+            val resource = sendRequest(
+                call = { apiService.getMovieVideos(movieId) },
+                mapper = MovieVideoEntityMapper()
             )
             emit(resource)
             emit(Resource.Loading(false))

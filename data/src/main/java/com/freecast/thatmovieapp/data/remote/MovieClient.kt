@@ -20,7 +20,7 @@ object MovieClient {
                 .method(original.method, original.body)
             val request = requestBuilder.build()
             chain.proceed(request)
-        }//.addInterceptor(ErrorInterceptor())
+        }.addInterceptor(ErrorInterceptor())
         .build()
 
     val apiService: ApiService by lazy {

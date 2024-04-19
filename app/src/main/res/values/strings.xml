@@ -19,4 +19,9 @@
     <string name="detail_duration_min">%d min</string>
     <string name="detail_rated">%s (%d)</string>
     <string name="detail_similar_movies">Similar</string>
+
+    <string name="error_network">Network error occurred. Please check your internet connection.</string>
+    <string name="error_server">Server error occurred. Please try again later.</string>
+    <string name="error_unknown">An unknown error occurred. Please try again.</string>
+
 </resources>

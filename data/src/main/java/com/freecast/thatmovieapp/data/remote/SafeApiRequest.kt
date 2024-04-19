@@ -1,8 +1,11 @@
 package com.freecast.thatmovieapp.data.remote
 
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
+import com.freecast.thatmovieapp.data.remote.exceptions.NetworkException
 import com.freecast.thatmovieapp.domain.repository.Resource
 import retrofit2.Response
+import java.io.IOException
+import java.net.ConnectException
 
 abstract class SafeApiRequest {
 
@@ -16,9 +19,12 @@ abstract class SafeApiRequest {
             Resource.Success(mappedResult)
         } catch (e: BaseException) {
             Resource.Error(e)
-        }
-        catch (e: Exception) {
-            Resource.Error(BaseException(0, e.message ?: "Unknown error"))
+        } catch (e: ConnectException) {
+            Resource.Error(NetworkException(0, null))
+        } catch (e: InterruptedException) {
+            Resource.Error(NetworkException(0, null))
+        } catch (e: IOException) {
+            Resource.Error(e)
         }
     }
 }
