@@ -6,7 +6,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.freecast.thatmovieapp.core.utils.ErrorHandler
+import com.freecast.thatmovieapp.core.util.ErrorHandler
 
 abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes layoutResID: Int, protected val mVModelClass: Class<VM>) : BaseFragmentWithoutVM(layoutResID) {
     protected lateinit var viewModel: VM
@@ -17,15 +17,11 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes layoutResID: Int, pro
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onInitViews()
         viewModel.errorHandler.observe(viewLifecycleOwner) {
             ErrorHandler(requireContext()).handleError(it)
         }
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             isLoading(it)
         })
-        onInitListeners()
-        onInitObservers()
     }
-
 }

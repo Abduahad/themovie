@@ -49,7 +49,7 @@ class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, G
         if (genreEntity == null) {
             onRefreshMoviesListener?.onLoadMovies(getString(R.string.main_popular_movies), Constants.MoviesEndPoint.POPULAR)
         } else {
-            onRefreshMoviesListener?.onLoadMoviesByGenreId(genreEntity.name,  genreEntity.id)
+            onRefreshMoviesListener?.onLoadMoviesByGenreId(genreEntity.name, genreEntity.id)
         }
     }
 

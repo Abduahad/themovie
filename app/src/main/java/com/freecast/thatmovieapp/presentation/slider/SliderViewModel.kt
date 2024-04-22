@@ -4,7 +4,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.freecast.thatmovieapp.presentation.movies.MoviesViewModel
 
-class SliderViewModel() : MoviesViewModel() {
+class SliderViewModel : MoviesViewModel() {
     fun getPageTransformer(): CompositePageTransformer {
         return CompositePageTransformer().apply {
             addTransformer(MarginPageTransformer(40))

@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.OptIn
+import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -29,12 +30,14 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.freecast.thatmovieapp.R
-import com.freecast.thatmovieapp.core.ui.BaseFragment
+import com.freecast.thatmovieapp.core.ui.BaseFragmentWithoutVM
+import com.freecast.thatmovieapp.core.util.ErrorHandler
 import com.freecast.thatmovieapp.presentation.movies.MoviesFragment
 import com.freecast.thatmovieapp.util.Constants
 
 
-class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment_detail_movie, DetailMovieViewModel::class.java), View.OnClickListener {
+class DetailMovieFragment : BaseFragmentWithoutVM(R.layout.fragment_detail_movie), View.OnClickListener {
+    private lateinit var viewModel: DetailMovieViewModel
     private lateinit var progressBar: ProgressBar
     private lateinit var progressBarPoster: ProgressBar
     private lateinit var textViewTitle: TextView
@@ -53,7 +56,7 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            viewModel.movieId = it.getInt(MOVIE_ID)
+            viewModel = ViewModelProvider(this, DetailMovieVMFactory(it.getInt(MOVIE_ID))).get(DetailMovieViewModel::class.java)
         }
     }
 
@@ -75,11 +78,19 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
         playerView.player = player
         fragmentContainerRelated = findViewByID(R.id.fragmentContainerRelated)
         frameLayoutPlayer = findViewByID(R.id.frameLayoutPlayer)
-        transaction(R.id.fragmentContainerRelated, MoviesFragment.newInstance(viewModel.movieId, getString(R.string.detail_similar_movies)), false, isReplace = true)
+        transaction(R.id.fragmentContainerRelated, MoviesFragment.newInstance(viewModel.getSimilarMoviesEndPoint(), getString(R.string.detail_similar_movies)), false, isReplace = true)
     }
 
     override fun onInitObservers() {
         super.onInitObservers()
+        viewModel.errorHandler.observe(viewLifecycleOwner) {
+            ErrorHandler(requireContext()).handleError(it)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            isLoading(it)
+        }
+
         viewModel.fetchMovieDetail().observe(viewLifecycleOwner) {
             textViewTitle.text = it.title
             textViewReleaseDate.text = it.releaseDate

@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.core.utils
+package com.freecast.thatmovieapp.core.util
 
 import android.content.Context
 import android.widget.Toast

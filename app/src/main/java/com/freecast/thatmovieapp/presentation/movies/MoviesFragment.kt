@@ -8,22 +8,41 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
-import com.freecast.thatmovieapp.domain.model.MovieEntity
-import com.freecast.thatmovieapp.core.BaseMoviesFragment
+import com.freecast.thatmovieapp.core.ui.BaseFragment
+import com.freecast.thatmovieapp.presentation.detail.DetailMovieFragment
 
-class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_movies, MoviesViewModel::class.java), OnRefreshMoviesListener {
+class MoviesFragment : BaseFragment<MoviesViewModel>(R.layout.fragment_movies, MoviesViewModel::class.java), OnRefreshMoviesListener, View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var textView: TextView
     private val adapter: MoviesAdapter = MoviesAdapter(this)
+
     override fun onInitViews() {
         super.onInitViews()
         recyclerView = findViewByID(R.id.recyclerView)
         progressBar = findViewByID(R.id.progressBar)
         textView = findViewByID(R.id.textViewTitle)
-        textView.text = viewModel.title
+        arguments?.getString(ENDPOINT)?.let {
+            textView.text = it
+        }
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
+    }
+
+    override fun onInitObservers() {
+        super.onInitObservers()
+        var title = getString(R.string.main_popular_movies)
+        arguments?.let { bundle ->
+            bundle.getString(TITLE)?.let {
+                title = it
+            }
+            bundle.getString(ENDPOINT)?.let {
+                onLoadMovies(title, it)
+            }
+            if (bundle.containsKey(GENRE_ID)) {
+                onLoadMoviesByGenreId(title, bundle.getInt(GENRE_ID))
+            }
+        }
     }
 
     override fun isLoading(isLoading: Boolean) {
@@ -36,11 +55,36 @@ class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_mov
         }
     }
 
-    override fun initMovies(movies: List<MovieEntity>) {
-        adapter.setMovies(movies)
+    override fun onLoadMovies(title: String, endpoint: String) {
+        viewModel.fetchMovies(endpoint).observe(this) {
+            adapter.setMovies(it)
+        }
+        textView.text = title
+    }
+
+    override fun onLoadMoviesByGenreId(title: String, genreId: Int) {
+        viewModel.fetchMoviesByGenreId(genreId).observe(this) {
+            adapter.setMovies(it)
+        }
+        textView.text = title
+    }
+
+    override fun onClick(p0: View?) {
+        p0?.let {
+            transaction(
+                R.id.fragment_container,
+                DetailMovieFragment.newInstance(it.tag as Int),
+                true,
+                isReplace = false
+            )
+        }
     }
 
     companion object {
+        private const val ENDPOINT = "ENDPOINT"
+        private const val TITLE = "TITLE"
+        private const val GENRE_ID = "GENRE_ID"
+
         @JvmStatic
         fun newInstance(endPoint: String, title: String) =
             MoviesFragment().apply {
@@ -50,24 +94,14 @@ class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_mov
                 }
             }
 
-        fun newInstance(movieId: Int, title: String) =
+        @JvmStatic
+        fun newInstance(genreId: Int, title: String) =
             MoviesFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(MOVIE_ID, movieId)
+                    putInt(GENRE_ID, genreId)
                     putString(TITLE, title)
                 }
             }
-    }
-
-    override fun onLoadMovies(title: String, endpoint: String) {
-        textView.text = title
-        viewModel.endPoint = endpoint
-        fetchMovies()
-    }
-
-    override fun onLoadMoviesByGenreId(title: String, genreId: Int) {
-        textView.text = title
-        fetchMoviesByGenreId(genreId)
     }
 
 }
