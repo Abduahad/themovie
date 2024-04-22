@@ -1,16 +1,16 @@
 package com.freecast.thatmovieapp.data.repository
 
 
-import MovieDetail
+import MovieDetailEntity
 import MovieDetailEntityMapper
 import com.freecast.thatmovieapp.data.mapper.GenreEntityMapper
 import com.freecast.thatmovieapp.data.mapper.MovieEntityMapper
 import com.freecast.thatmovieapp.data.mapper.MovieVideoEntityMapper
-import com.freecast.thatmovieapp.domain.model.Genre
-import com.freecast.thatmovieapp.domain.model.Movie
+import com.freecast.thatmovieapp.domain.model.GenreEntity
 import com.freecast.thatmovieapp.data.remote.ApiService
 import com.freecast.thatmovieapp.data.remote.SafeApiRequest
-import com.freecast.thatmovieapp.domain.model.MovieVideo
+import com.freecast.thatmovieapp.domain.model.MovieEntity
+import com.freecast.thatmovieapp.domain.model.MovieVideoEntity
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
 import com.freecast.thatmovieapp.domain.repository.Resource
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flow
 
 class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest(), MovieRepository {
     private val language = "en-US"
-    override suspend fun getGenres(): Flow<Resource<List<Genre>>> {
+    override suspend fun getGenres(): Flow<Resource<List<GenreEntity>>> {
         return flow {
             emit(Resource.Loading(true))
             val resource = sendRequest(
@@ -30,7 +30,7 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
         }
     }
 
-    override suspend fun getMovies(endpoint: String): Flow<Resource<List<Movie>>> {
+    override suspend fun getMovies(endpoint: String): Flow<Resource<List<MovieEntity>>> {
         return flow {
             emit(Resource.Loading(true))
             val resource = sendRequest(
@@ -42,7 +42,7 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
         }
     }
 
-    override suspend fun getMoviesByGenreId(genreId: Int): Flow<Resource<List<Movie>>> {
+    override suspend fun getMoviesByGenreId(genreId: Int): Flow<Resource<List<MovieEntity>>> {
         return flow {
             emit(Resource.Loading(true))
             val resource = sendRequest(
@@ -54,7 +54,7 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
         }
     }
 
-    override suspend fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetail>> {
+    override suspend fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetailEntity>> {
         return flow {
             emit(Resource.Loading(true))
             val resource = sendRequest(
@@ -66,7 +66,7 @@ class MovieRepositoryImpl(private val apiService: ApiService) : SafeApiRequest()
         }
     }
 
-    override suspend fun getMovieVideos(movieId: Int): Flow<Resource<List<MovieVideo>>> {
+    override suspend fun getMovieVideos(movieId: Int): Flow<Resource<List<MovieVideoEntity>>> {
         return flow {
             emit(Resource.Loading(true))
             val resource = sendRequest(

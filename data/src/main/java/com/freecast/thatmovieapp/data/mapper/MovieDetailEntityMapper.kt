@@ -1,28 +1,28 @@
 import com.freecast.thatmovieapp.data.mapper.GenreEntityMapper
 import com.freecast.thatmovieapp.data.model.GenreResult
-import com.freecast.thatmovieapp.data.model.MovieDetailEntity
+import com.freecast.thatmovieapp.data.model.MovieDetailModel
 
-class MovieDetailEntityMapper : (MovieDetailEntity) -> MovieDetail {
-    override fun invoke(movieDetailEntity: MovieDetailEntity): MovieDetail {
-        return MovieDetail(
-            backdrop_path = movieDetailEntity.backdropPath,
-            budget = movieDetailEntity.budget,
-            genres = GenreEntityMapper().invoke(GenreResult(movieDetailEntity.genres)),
-            id = movieDetailEntity.id,
-            imdb_id = movieDetailEntity.imdbId,
-            original_title = movieDetailEntity.originalTitle,
-            overview = movieDetailEntity.overview,
-            popularity = movieDetailEntity.popularity,
-            poster_path = movieDetailEntity.posterPath,
-            release_date = movieDetailEntity.releaseDate,
-            revenue = movieDetailEntity.revenue,
-            runtime = movieDetailEntity.runtime,
-            status = movieDetailEntity.status,
-            tagline = movieDetailEntity.tagline,
-            title = movieDetailEntity.title,
-            video = movieDetailEntity.video,
-            vote_average = movieDetailEntity.voteAverage,
-            vote_count = movieDetailEntity.voteCount
+class MovieDetailEntityMapper : (MovieDetailModel) -> MovieDetailEntity {
+    override fun invoke(movieDetailModel: MovieDetailModel): MovieDetailEntity {
+        return MovieDetailEntity(
+            backdropPath = movieDetailModel.backdropPath,
+            budget = movieDetailModel.budget,
+            genres = GenreEntityMapper().invoke(GenreResult(movieDetailModel.genres)),
+            id = movieDetailModel.id,
+            imdbId = movieDetailModel.imdbId,
+            originalTitle = movieDetailModel.originalTitle,
+            overview = movieDetailModel.overview,
+            popularity = movieDetailModel.popularity,
+            posterPath = movieDetailModel.posterPath,
+            releaseDate = movieDetailModel.releaseDate,
+            revenue = movieDetailModel.revenue,
+            runtime = movieDetailModel.runtime,
+            status = movieDetailModel.status,
+            tagline = movieDetailModel.tagline,
+            title = movieDetailModel.title,
+            video = movieDetailModel.video,
+            voteAverage = movieDetailModel.voteAverage,
+            voteCount = movieDetailModel.voteCount
         )
     }
 }

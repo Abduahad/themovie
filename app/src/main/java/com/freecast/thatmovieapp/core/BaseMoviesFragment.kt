@@ -3,11 +3,10 @@ package com.freecast.thatmovieapp.core
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
-import androidx.lifecycle.Observer
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
 import com.freecast.thatmovieapp.presentation.detail.DetailMovieFragment
-import com.freecast.thatmovieapp.domain.model.Movie
+import com.freecast.thatmovieapp.domain.model.MovieEntity
 import com.freecast.thatmovieapp.presentation.movies.MoviesViewModel
 
 abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: Int, mVModelClass: Class<VM>) : BaseFragment<VM>(layoutResID, mVModelClass), View.OnClickListener {
@@ -55,5 +54,5 @@ abstract class BaseMoviesFragment<VM : MoviesViewModel>(@LayoutRes layoutResID: 
         }
     }
 
-    abstract fun initMovies(movies: List<Movie>)
+    abstract fun initMovies(movies: List<MovieEntity>)
 }

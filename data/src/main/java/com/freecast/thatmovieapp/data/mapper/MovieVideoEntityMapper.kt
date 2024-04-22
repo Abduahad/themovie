@@ -1,12 +1,12 @@
 package com.freecast.thatmovieapp.data.mapper
 
 import com.freecast.thatmovieapp.data.model.MovieVideoResult
-import com.freecast.thatmovieapp.domain.model.MovieVideo
+import com.freecast.thatmovieapp.domain.model.MovieVideoEntity
 
-class MovieVideoEntityMapper : (MovieVideoResult) -> List<MovieVideo> {
-    override fun invoke(result: MovieVideoResult): List<MovieVideo> {
+class MovieVideoEntityMapper : (MovieVideoResult) -> List<MovieVideoEntity> {
+    override fun invoke(result: MovieVideoResult): List<MovieVideoEntity> {
         return result.results.map {
-            MovieVideo(
+            MovieVideoEntity(
                 id = it.id,
                 key = it.key,
                 name = it.name,

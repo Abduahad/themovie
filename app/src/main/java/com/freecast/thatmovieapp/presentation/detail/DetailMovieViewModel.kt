@@ -1,11 +1,11 @@
 package com.freecast.thatmovieapp.presentation.detail
 
-import MovieDetail
+import MovieDetailEntity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.freecast.thatmovieapp.core.ui.BaseViewModel
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
-import com.freecast.thatmovieapp.domain.model.MovieVideo
+import com.freecast.thatmovieapp.domain.model.MovieVideoEntity
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
 import com.freecast.thatmovieapp.domain.repository.Resource
 import com.freecast.thatmovieapp.domain.usecase.GetDetailMovieUseCase
@@ -15,8 +15,8 @@ import org.koin.java.KoinJavaComponent
 open class DetailMovieViewModel : BaseViewModel() {
     private val movieRepository: MovieRepository by KoinJavaComponent.inject(MovieRepository::class.java)
     var movieId: Int = 0
-    fun fetchMovieDetail(): LiveData<MovieDetail> {
-        val result: MutableLiveData<MovieDetail> = MutableLiveData()
+    fun fetchMovieDetail(): LiveData<MovieDetailEntity> {
+        val result: MutableLiveData<MovieDetailEntity> = MutableLiveData()
         launchCoroutine {
             val useCase = GetDetailMovieUseCase(movieRepository)
             useCase.execute(movieId).collect {
@@ -38,8 +38,8 @@ open class DetailMovieViewModel : BaseViewModel() {
         return result
     }
 
-    fun fetchMovieVideo(): LiveData<MovieVideo> {
-        val result: MutableLiveData<MovieVideo> = MutableLiveData()
+    fun fetchMovieVideo(): LiveData<MovieVideoEntity> {
+        val result: MutableLiveData<MovieVideoEntity> = MutableLiveData()
         launchCoroutine {
             val useCase = GetMovieVideoUseCase(movieRepository)
             useCase.execute(movieId).collect { it ->
@@ -65,7 +65,7 @@ open class DetailMovieViewModel : BaseViewModel() {
         return result
     }
 
-    private fun getVideo(videos: List<MovieVideo>, site: String = "YouTube", type: String = "Trailer"): MovieVideo? {
+    private fun getVideo(videos: List<MovieVideoEntity>, site: String = "YouTube", type: String = "Trailer"): MovieVideoEntity? {
         videos.forEach {
             if (it.site == site && it.type == type) {
                 return it

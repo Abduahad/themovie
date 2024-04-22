@@ -1,7 +1,6 @@
 package com.freecast.thatmovieapp.domain.model
 
-
-data class Movie(
+data class MovieEntity(
     val backdropPath: String?,
     val posterPath: String?,
     val id: Int,

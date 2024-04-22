@@ -2,7 +2,7 @@ package com.freecast.thatmovieapp.data.remote
 
 
 import com.freecast.thatmovieapp.data.model.GenreResult
-import com.freecast.thatmovieapp.data.model.MovieDetailEntity
+import com.freecast.thatmovieapp.data.model.MovieDetailModel
 import com.freecast.thatmovieapp.data.model.MovieResult
 import com.freecast.thatmovieapp.data.model.MovieVideoResult
 import retrofit2.Response
@@ -22,7 +22,7 @@ interface ApiService {
     suspend fun getMoviesByGenre(@Query("with_genres") withGenres: Int): Response<MovieResult>
 
     @GET("movie/{movie_id}")
-    suspend fun getMovieDetail(@Path("movie_id") movieId: Int): Response<MovieDetailEntity>
+    suspend fun getMovieDetail(@Path("movie_id") movieId: Int): Response<MovieDetailModel>
 
     @GET("movie/{movie_id}/videos")
     suspend fun getMovieVideos(@Path("movie_id") movieId: Int): Response<MovieVideoResult>

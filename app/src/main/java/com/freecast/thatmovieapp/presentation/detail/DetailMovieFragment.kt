@@ -82,12 +82,12 @@ class DetailMovieFragment : BaseFragment<DetailMovieViewModel>(R.layout.fragment
         super.onInitObservers()
         viewModel.fetchMovieDetail().observe(viewLifecycleOwner) {
             textViewTitle.text = it.title
-            textViewReleaseDate.text = it.release_date
+            textViewReleaseDate.text = it.releaseDate
             textViewSummary.text = it.overview
             textViewDuration.text = getString(R.string.detail_duration_min, it.runtime)
-            textViewRating.text = getString(R.string.detail_rated, it.vote_average.toString(), it.vote_count)
+            textViewRating.text = getString(R.string.detail_rated, it.voteAverage.toString(), it.voteCount)
             textViewBudget.text = it.budget.toString()
-            it.backdrop_path?.let { posterPath -> loadPoster(posterPath) }
+            it.backdropPath?.let { posterPath -> loadPoster(posterPath) }
             linearLayoutGenres.removeAllViews()
             it.genres.forEach { genre ->
                 linearLayoutGenres.addView(getGenreItemView(genre.name))

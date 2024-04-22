@@ -1,6 +1,6 @@
 package com.freecast.thatmovieapp.domain.model
 
-data class MovieVideo(
+data class MovieVideoEntity(
     val id: String?,
     val key: String,
     val name: String?,

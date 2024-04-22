@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseViewHolder
-import com.freecast.thatmovieapp.domain.model.Genre
+import com.freecast.thatmovieapp.domain.model.GenreEntity
 
 class GenresAdapter(
-    private val genres: List<Genre>,
+    private val genres: List<GenreEntity>,
     private val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<GenresAdapter.GenresViewHolder>() {
     var selectedPosition: Int = -1
@@ -32,13 +32,13 @@ class GenresAdapter(
         return genres.size
     }
 
-    fun getGenreByPosition(position: Int): Genre {
+    fun getGenreByPosition(position: Int): GenreEntity {
         return genres[position]
     }
 
-    inner class GenresViewHolder(itemView: View) : BaseViewHolder<Genre>(itemView) {
+    inner class GenresViewHolder(itemView: View) : BaseViewHolder<GenreEntity>(itemView) {
         private val textView: TextView = findViewById(R.id.textView)
-        override fun bind(item: Genre) {
+        override fun bind(item: GenreEntity) {
             textView.text = item.name
             if (selectedPosition > -1 && item.id == genres[selectedPosition].id) {
                 textView.setBackgroundColor(getColor(R.color.selected_genre_color))

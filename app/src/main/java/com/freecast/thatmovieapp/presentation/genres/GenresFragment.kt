@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
-import com.freecast.thatmovieapp.domain.model.Genre
+import com.freecast.thatmovieapp.domain.model.GenreEntity
 import com.freecast.thatmovieapp.presentation.movies.OnRefreshMoviesListener
 import com.freecast.thatmovieapp.util.Constants
 
@@ -28,7 +28,7 @@ class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, G
         }
     }
 
-    private fun initGenres(genres: List<Genre>) {
+    private fun initGenres(genres: List<GenreEntity>) {
         adapter = GenresAdapter(genres, this)
         recyclerView.adapter = adapter
     }
@@ -45,11 +45,11 @@ class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, G
         adapter.notifyDataSetChanged()
     }
 
-    private fun notifyLoadMoviesByGenre(genre: Genre?) {
-        if (genre == null) {
+    private fun notifyLoadMoviesByGenre(genreEntity: GenreEntity?) {
+        if (genreEntity == null) {
             onRefreshMoviesListener?.onLoadMovies(getString(R.string.main_popular_movies), Constants.MoviesEndPoint.POPULAR)
         } else {
-            onRefreshMoviesListener?.onLoadMoviesByGenreId(genre.name,  genre.id)
+            onRefreshMoviesListener?.onLoadMoviesByGenreId(genreEntity.name,  genreEntity.id)
         }
     }
 

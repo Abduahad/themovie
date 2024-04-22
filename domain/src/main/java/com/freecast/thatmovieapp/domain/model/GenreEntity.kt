@@ -1,6 +1,6 @@
 package com.freecast.thatmovieapp.domain.model
 
-data class Genre(
+data class GenreEntity(
     val id: Int,
     val name: String
 )

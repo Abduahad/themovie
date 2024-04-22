@@ -2,7 +2,7 @@ package com.freecast.thatmovieapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieVideoEntity(
+data class MovieVideoModel(
     @SerializedName("id")
     val id: String?,
     @SerializedName("iso_3166_1")

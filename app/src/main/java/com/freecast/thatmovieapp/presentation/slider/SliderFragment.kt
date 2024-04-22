@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.viewpager2.widget.ViewPager2
 import com.freecast.thatmovieapp.R
-import com.freecast.thatmovieapp.domain.model.Movie
+import com.freecast.thatmovieapp.domain.model.MovieEntity
 import com.freecast.thatmovieapp.core.BaseMoviesFragment
 import com.freecast.thatmovieapp.util.Constants
 
@@ -26,7 +26,7 @@ class SliderFragment : BaseMoviesFragment<SliderViewModel>(R.layout.fragment_mov
         viewPager2.setPageTransformer(viewModel.getPageTransformer())
     }
 
-    override fun initMovies(movies: List<Movie>) {
+    override fun initMovies(movies: List<MovieEntity>) {
         viewPager2.adapter = SliderAdapter(movies,this)
         viewPager2.getChildAt(0).overScrollMode = ViewPager2.OVER_SCROLL_NEVER
         viewPager2.currentItem = 1

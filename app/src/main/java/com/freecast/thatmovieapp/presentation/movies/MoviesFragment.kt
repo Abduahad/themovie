@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
-import com.freecast.thatmovieapp.domain.model.Movie
+import com.freecast.thatmovieapp.domain.model.MovieEntity
 import com.freecast.thatmovieapp.core.BaseMoviesFragment
 
 class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_movies, MoviesViewModel::class.java), OnRefreshMoviesListener {
@@ -36,7 +36,7 @@ class MoviesFragment : BaseMoviesFragment<MoviesViewModel>(R.layout.fragment_mov
         }
     }
 
-    override fun initMovies(movies: List<Movie>) {
+    override fun initMovies(movies: List<MovieEntity>) {
         adapter.setMovies(movies)
     }
 

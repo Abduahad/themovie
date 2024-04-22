@@ -7,7 +7,6 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -17,10 +16,10 @@ import com.bumptech.glide.request.RequestListener
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseAdapter
 import com.freecast.thatmovieapp.core.ui.BaseViewHolder
-import com.freecast.thatmovieapp.domain.model.Movie
+import com.freecast.thatmovieapp.domain.model.MovieEntity
 import com.freecast.thatmovieapp.util.Constants
 
-class SliderAdapter(private val sliders: List<Movie>, private val onClickListener: OnClickListener) : BaseAdapter<Movie, SliderAdapter.ViewHolder>() {
+class SliderAdapter(private val sliders: List<MovieEntity>, private val onClickListener: OnClickListener) : BaseAdapter<MovieEntity, SliderAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(vg: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(vg.context).inflate(R.layout.item_slider, vg, false))
@@ -38,10 +37,10 @@ class SliderAdapter(private val sliders: List<Movie>, private val onClickListene
         }
     }
 
-    inner class ViewHolder(itemView: View) : BaseViewHolder<Movie>(itemView) {
+    inner class ViewHolder(itemView: View) : BaseViewHolder<MovieEntity>(itemView) {
         private val imageView: ImageView = findViewById(R.id.imageView)
         private val progressBar: ProgressBar = findViewById(R.id.progressBar)
-        override fun bind(item: Movie) {
+        override fun bind(item: MovieEntity) {
             Glide.with(context).load(Constants.BASE_IMAGE_URL + item.backdropPath).transform(CenterCrop(), RoundedCorners(32)).listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?,
