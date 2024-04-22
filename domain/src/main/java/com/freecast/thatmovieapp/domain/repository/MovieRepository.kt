@@ -4,6 +4,7 @@ import MovieDetailEntity
 import com.freecast.thatmovieapp.domain.model.GenreEntity
 import com.freecast.thatmovieapp.domain.model.MovieEntity
 import com.freecast.thatmovieapp.domain.model.MovieVideoEntity
+import com.freecast.thatmovieapp.domain.model.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {

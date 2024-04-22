@@ -2,7 +2,8 @@ package com.freecast.thatmovieapp.data.remote
 
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
 import com.freecast.thatmovieapp.data.remote.exceptions.NetworkException
-import com.freecast.thatmovieapp.domain.repository.Resource
+import com.freecast.thatmovieapp.domain.model.Resource
+
 import retrofit2.Response
 import java.io.IOException
 import java.net.ConnectException
@@ -28,5 +29,3 @@ abstract class SafeApiRequest {
         }
     }
 }
-
-

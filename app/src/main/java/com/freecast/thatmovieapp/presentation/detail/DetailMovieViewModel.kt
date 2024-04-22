@@ -7,7 +7,7 @@ import com.freecast.thatmovieapp.core.ui.BaseViewModel
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
 import com.freecast.thatmovieapp.domain.model.MovieVideoEntity
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
-import com.freecast.thatmovieapp.domain.repository.Resource
+import com.freecast.thatmovieapp.domain.model.Resource
 import com.freecast.thatmovieapp.domain.usecase.GetDetailMovieUseCase
 import com.freecast.thatmovieapp.domain.usecase.GetMovieVideoUseCase
 import org.koin.java.KoinJavaComponent

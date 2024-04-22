@@ -6,7 +6,7 @@ import com.freecast.thatmovieapp.core.ui.BaseViewModel
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
 import com.freecast.thatmovieapp.domain.model.GenreEntity
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
-import com.freecast.thatmovieapp.domain.repository.Resource
+import com.freecast.thatmovieapp.domain.model.Resource
 import com.freecast.thatmovieapp.domain.usecase.GetGenresUseCase
 import org.koin.java.KoinJavaComponent
 
@@ -19,14 +19,16 @@ class GenresViewModel : BaseViewModel() {
             useCase.execute(Unit).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        _isLoading.postValue(it.isLoading)
+                        _isLoading.postValue(true)
                     }
 
                     is Resource.Success -> {
                         result.postValue(it.data)
+                        _isLoading.postValue(false)
                     }
 
                     is Resource.Error -> {
+                        _isLoading.postValue(false)
                         handleError(it.data as BaseException)
                     }
                 }
