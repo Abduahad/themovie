@@ -12,17 +12,17 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("genre/movie/list")
-    suspend fun getGenres(@Query("language") language: String = "en-US"): Response<GenreResult>
+    @GET("genre/{typePath}/list")
+    suspend fun getGenres(@Path("typePath") typePath: String, @Query("language") language: String = "en-US"): Response<GenreResult>
 
-    @GET("{endpoint}")
-    suspend fun getMovies(@Path("endpoint") endpoint: String): Response<MovieResult>
+    @GET("{typePath}/{endpoint}")
+    suspend fun getMovies(@Path("typePath") typePath: String, @Path("endpoint") endpoint: String): Response<MovieResult>
 
-    @GET("discover/movie")
-    suspend fun getMoviesByGenre(@Query("with_genres") withGenres: Int): Response<MovieResult>
+    @GET("discover/{typePath}")
+    suspend fun getByGenre(@Path("typePath") typePath: String, @Query("with_genres") withGenres: Int): Response<MovieResult>
 
-    @GET("movie/{movie_id}")
-    suspend fun getMovieDetail(@Path("movie_id") movieId: Int): Response<MovieDetailModel>
+    @GET("{typePath}/{id}")
+    suspend fun getMovieDetail(@Path("typePath") typePath: String, @Path("id") id: Int): Response<MovieDetailModel>
 
     @GET("movie/{movie_id}/videos")
     suspend fun getMovieVideos(@Path("movie_id") movieId: Int): Response<MovieVideoResult>

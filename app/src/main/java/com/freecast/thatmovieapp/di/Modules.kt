@@ -11,5 +11,5 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single<MovieRepository> { MovieRepositoryImpl(RemoteDataSourceImpl(get())) }
+    single<MovieRepository> { MovieRepositoryImpl(RemoteDataSourceImpl(get(),get())) }
 }

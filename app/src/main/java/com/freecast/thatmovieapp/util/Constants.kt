@@ -6,10 +6,10 @@ object Constants {
 
     class MoviesEndPoint {
         companion object {
-            const val POPULAR = "movie/popular"
-            const val UPCOMING = "movie/upcoming"
-            const val TOP_RATED = "movie/top_rated"
-            const val NOW_PLAYING = "movie/now_playing"
+            const val POPULAR= "popular"
+            const val UPCOMING = "upcoming"
+            const val TOP_RATED = "top_rated"
+            const val NOW_PLAYING = "now_playing"
         }
     }
 }

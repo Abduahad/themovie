@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseViewHolder
 import com.freecast.thatmovieapp.domain.model.GenreEntity
+import com.freecast.thatmovieapp.presentation.movies.OnLoadMoviesListener
 
-class GenresAdapter(
-    private val genres: List<GenreEntity>,
-    private val onClickListener: OnClickListener
-) : RecyclerView.Adapter<GenresAdapter.GenresViewHolder>() {
-    var selectedPosition: Int = -1
+//ToDo:Refactor this class
+class GenresAdapter(private val genres: List<GenreEntity>, private val isTv: Boolean = false) : RecyclerView.Adapter<GenresAdapter.GenresViewHolder>(), OnClickListener {
+    private var selectedPosition: Int = -1
+    private var onRefreshMoviesListener: OnLoadMoviesListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenresViewHolder {
         return GenresViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_genre, parent, false))
     }
@@ -23,7 +23,7 @@ class GenresAdapter(
         holder.bind(genres[position])
         holder.itemView.apply {
             tag = position
-            setOnClickListener(onClickListener)
+            setOnClickListener(this@GenresAdapter)
         }
         holder.setIsRecyclable(false)
     }
@@ -32,10 +32,24 @@ class GenresAdapter(
         return genres.size
     }
 
-    fun getGenreByPosition(position: Int): GenreEntity {
-        return genres[position]
-    }
+    //Todo: use notifyItemChanged instead of notifyDataSetChanged
+    override fun onClick(v: View) {
+        val position = v.tag as Int
+        if (selectedPosition == position) {
+            selectedPosition = -1
+            onRefreshMoviesListener?.onLoadDefaultMovies()
+        } else {
+            val genre = genres[position]
+            selectedPosition = position
+            onRefreshMoviesListener?.onLoadMoviesByGenre(genre.name, genre.id)
+        }
+        notifyDataSetChanged()
 
+    }
+    //Todo: Remove this method
+    fun setOnRefreshListener(onRefreshMoviesListener: OnLoadMoviesListener?) {
+        this.onRefreshMoviesListener = onRefreshMoviesListener
+    }
     inner class GenresViewHolder(itemView: View) : BaseViewHolder<GenreEntity>(itemView) {
         private val textView: TextView = findViewById(R.id.textView)
         override fun bind(item: GenreEntity) {

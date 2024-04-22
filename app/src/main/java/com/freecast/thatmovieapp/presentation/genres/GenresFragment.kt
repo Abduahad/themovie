@@ -1,19 +1,25 @@
 package com.freecast.thatmovieapp.presentation.genres
 
 
-import android.view.View
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.freecast.thatmovieapp.R
 import com.freecast.thatmovieapp.core.ui.BaseFragment
 import com.freecast.thatmovieapp.domain.model.GenreEntity
-import com.freecast.thatmovieapp.presentation.movies.OnRefreshMoviesListener
-import com.freecast.thatmovieapp.util.Constants
+import com.freecast.thatmovieapp.presentation.movies.OnLoadMoviesListener
 
-class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, GenresViewModel::class.java), View.OnClickListener {
+class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, GenresViewModel::class.java) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GenresAdapter
-    var onRefreshMoviesListener: OnRefreshMoviesListener? = null
+    private var onRefreshMoviesListener: OnLoadMoviesListener? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            viewModel.setTv(it.getBoolean(IS_TV))
+        }
+    }
 
     override fun onInitViews() {
         super.onInitViews()
@@ -29,34 +35,21 @@ class GenresFragment : BaseFragment<GenresViewModel>(R.layout.fragment_genres, G
     }
 
     private fun initGenres(genres: List<GenreEntity>) {
-        adapter = GenresAdapter(genres, this)
+        adapter = GenresAdapter(genres, viewModel.getTv())
+        adapter.setOnRefreshListener(onRefreshMoviesListener)
         recyclerView.adapter = adapter
     }
 
-    override fun onClick(v: View) {
-        val position = v.tag as Int
-        if (adapter.selectedPosition == position) {
-            adapter.selectedPosition = -1
-            notifyLoadMoviesByGenre(null)
-        } else {
-            adapter.selectedPosition = position
-            notifyLoadMoviesByGenre(adapter.getGenreByPosition(position))
-        }
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun notifyLoadMoviesByGenre(genreEntity: GenreEntity?) {
-        if (genreEntity == null) {
-            onRefreshMoviesListener?.onLoadMovies(getString(R.string.main_popular_movies), Constants.MoviesEndPoint.POPULAR)
-        } else {
-            onRefreshMoviesListener?.onLoadMoviesByGenreId(genreEntity.name, genreEntity.id)
-        }
+    fun setOnRefreshListener(onRefreshMoviesListener: OnLoadMoviesListener) {
+        this.onRefreshMoviesListener = onRefreshMoviesListener
     }
 
     companion object {
+        private const val IS_TV: String = "IS_TV"
+
         @JvmStatic
-        fun newInstance(onRefreshMoviesListener: OnRefreshMoviesListener? = null) = GenresFragment().apply {
-            this.onRefreshMoviesListener = onRefreshMoviesListener
+        fun newInstance(isTv: Boolean = false) = GenresFragment().apply {
+            arguments = Bundle().apply { putBoolean(IS_TV, isTv) }
         }
     }
 }

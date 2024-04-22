@@ -56,7 +56,7 @@ class DetailMovieFragment : BaseFragmentWithoutVM(R.layout.fragment_detail_movie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            viewModel = ViewModelProvider(this, DetailMovieVMFactory(it.getInt(MOVIE_ID))).get(DetailMovieViewModel::class.java)
+            viewModel = ViewModelProvider(this, DetailMovieVMFactory(it.getInt(MOVIE_ID), it.getBoolean(IS_TV))).get(DetailMovieViewModel::class.java)
         }
     }
 
@@ -78,7 +78,12 @@ class DetailMovieFragment : BaseFragmentWithoutVM(R.layout.fragment_detail_movie
         playerView.player = player
         fragmentContainerRelated = findViewByID(R.id.fragmentContainerRelated)
         frameLayoutPlayer = findViewByID(R.id.frameLayoutPlayer)
-        transaction(R.id.fragmentContainerRelated, MoviesFragment.newInstance(viewModel.getSimilarMoviesEndPoint(), getString(R.string.detail_similar_movies)), false, isReplace = true)
+        transaction(
+            R.id.fragmentContainerRelated,
+            MoviesFragment.newInstance(viewModel.getSimilarMoviesEndPoint(), getString(R.string.detail_similar_movies), viewModel.getIsTv()),
+            false,
+            isReplace = true
+        )
     }
 
     override fun onInitObservers() {
@@ -91,13 +96,19 @@ class DetailMovieFragment : BaseFragmentWithoutVM(R.layout.fragment_detail_movie
             isLoading(it)
         }
 
-        viewModel.fetchMovieDetail().observe(viewLifecycleOwner) {
+        viewModel.fetchMovieDetail().observe(viewLifecycleOwner) { it ->
+            var duration = "~"
+            it.runtime?.let {
+                getString(R.string.detail_duration_min, it).let { duration = it }
+            }
+            var budget: String = "~"
+            if (it.budget != null && it.budget != 0)  budget =  it.budget.toString()
             textViewTitle.text = it.title
             textViewReleaseDate.text = it.releaseDate
             textViewSummary.text = it.overview
-            textViewDuration.text = getString(R.string.detail_duration_min, it.runtime)
+            textViewDuration.text = duration
             textViewRating.text = getString(R.string.detail_rated, it.voteAverage.toString(), it.voteCount)
-            textViewBudget.text = it.budget.toString()
+            textViewBudget.text = budget
             it.backdropPath?.let { posterPath -> loadPoster(posterPath) }
             linearLayoutGenres.removeAllViews()
             it.genres.forEach { genre ->
@@ -187,12 +198,14 @@ class DetailMovieFragment : BaseFragmentWithoutVM(R.layout.fragment_detail_movie
 
     companion object {
         private const val MOVIE_ID = "MOVIE_ID"
+        private const val IS_TV = "IS_TV"
 
         @JvmStatic
-        fun newInstance(movieId: Int) =
+        fun newInstance(movieId: Int, isTv: Boolean = false) =
             DetailMovieFragment().apply {
                 arguments = Bundle().apply {
                     putInt(MOVIE_ID, movieId)
+                    putBoolean(IS_TV, isTv)
                 }
             }
     }

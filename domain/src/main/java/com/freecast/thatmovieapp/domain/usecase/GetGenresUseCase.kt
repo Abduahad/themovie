@@ -7,8 +7,8 @@ import com.freecast.thatmovieapp.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 
 
-class GetGenresUseCase(private val movieRepository: MovieRepository) : BaseUseCase<List<GenreEntity>, Unit>() {
+class GetGenresUseCase(private val movieRepository: MovieRepository,private val isTv:Boolean) : BaseUseCase<List<GenreEntity>, Unit>() {
     override suspend fun execute(params: Unit): Flow<Resource<List<GenreEntity>>> {
-        return movieRepository.getGenres()
+        return movieRepository.getGenres(isTv)
     }
 }

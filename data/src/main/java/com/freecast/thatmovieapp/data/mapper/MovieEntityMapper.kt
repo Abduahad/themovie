@@ -10,10 +10,10 @@ class MovieEntityMapper : (MovieResult) -> List<MovieEntity> {
         return MovieEntity(
             backdropPath = movieModel.backdropPath,
             id = movieModel.id,
-            originalTitle = movieModel.originalTitle,
+            originalTitle = if (movieModel.originalTitle.isNullOrEmpty()) movieModel.originalName else movieModel.originalTitle,
             overview = movieModel.overview,
             posterPath = movieModel.posterPath,
-            title = movieModel.title,
+            title = if (movieModel.title.isNullOrEmpty()) movieModel.name else movieModel.title,
             video = movieModel.video
         )
     }

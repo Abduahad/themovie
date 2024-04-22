@@ -11,20 +11,20 @@ import com.freecast.thatmovieapp.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 
 class MovieRepositoryImpl(private val remoteDataSource: RemoteDataSourceImpl) : MovieRepository {
-    override suspend fun getGenres(): Flow<Resource<List<GenreEntity>>> {
-        return remoteDataSource.getGenres()
+    override suspend fun getGenres(isTv: Boolean): Flow<Resource<List<GenreEntity>>> {
+        return remoteDataSource.getGenres(isTv)
     }
 
-    override suspend fun getMovies(endpoint: String): Flow<Resource<List<MovieEntity>>> {
-        return remoteDataSource.getMovies(endpoint)
+    override suspend fun getMovies(isTv: Boolean,endpoint: String): Flow<Resource<List<MovieEntity>>> {
+        return remoteDataSource.getMovies(isTv,endpoint)
     }
 
-    override suspend fun getMoviesByGenreId(genreId: Int): Flow<Resource<List<MovieEntity>>> {
-        return remoteDataSource.getMoviesByGenreId(genreId)
+    override suspend fun getByGenreId(genreId: Int, isTv: Boolean): Flow<Resource<List<MovieEntity>>> {
+        return remoteDataSource.getByGenreId(genreId, isTv)
     }
 
-    override suspend fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetailEntity>> {
-        return remoteDataSource.getMovieDetail(movieId)
+    override suspend fun getDetail(id: Int, isTv: Boolean): Flow<Resource<MovieDetailEntity>> {
+        return remoteDataSource.getDetail(id, isTv)
     }
 
     override suspend fun getMovieVideos(movieId: Int): Flow<Resource<List<MovieVideoEntity>>> {

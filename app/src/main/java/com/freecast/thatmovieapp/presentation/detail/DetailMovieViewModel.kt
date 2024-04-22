@@ -10,10 +10,10 @@ import com.freecast.thatmovieapp.domain.model.Resource
 import com.freecast.thatmovieapp.domain.usecase.GetDetailMovieUseCase
 import com.freecast.thatmovieapp.domain.usecase.GetMovieVideoUseCase
 
-open class DetailMovieViewModel(private var movieId: Int = 0) : BaseViewModel() {
+open class DetailMovieViewModel(private var movieId: Int = 0, private val isTv:Boolean=false) : BaseViewModel() {
     fun fetchMovieDetail(): LiveData<MovieDetailEntity> {
         return fetchData {
-            GetDetailMovieUseCase(movieRepository).execute(movieId)
+            GetDetailMovieUseCase(movieRepository,isTv).execute(movieId)
         }
     }
 
@@ -51,8 +51,11 @@ open class DetailMovieViewModel(private var movieId: Int = 0) : BaseViewModel() 
         }
         return null
     }
+    fun getIsTv(): Boolean {
+        return isTv
+    }
 
     fun getSimilarMoviesEndPoint(): String {
-        return "movie/$movieId/similar"
+        return "$movieId/similar"
     }
 }

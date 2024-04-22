@@ -3,12 +3,12 @@ package com.freecast.thatmovieapp.data.remote.interceptors
 import com.freecast.thatmovieapp.data.remote.exceptions.BadException
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
 import com.freecast.thatmovieapp.data.remote.exceptions.ServerException
-import com.google.gson.JsonObject
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.IOException
 import org.json.JSONObject
 
+//ToDo: Refactor this class to use the new exceptions
 class ErrorInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

@@ -1,3 +1,3 @@
 package com.freecast.thatmovieapp.data.remote.exceptions
 
-class NetworkException(code: Int, message: String?): BaseException(code,message)
+class NetworkException( message: String?): BaseException(0,message)

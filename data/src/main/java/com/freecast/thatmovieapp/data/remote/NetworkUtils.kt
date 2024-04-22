@@ -1,4 +1,4 @@
-package com.freecast.thatmovieapp.core.util
+package com.freecast.thatmovieapp.data.remote
 
 import android.content.Context
 import android.net.ConnectivityManager

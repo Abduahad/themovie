@@ -8,7 +8,9 @@ import com.freecast.thatmovieapp.core.util.SingleLiveData
 import com.freecast.thatmovieapp.data.remote.exceptions.BaseException
 import com.freecast.thatmovieapp.domain.model.Resource
 import com.freecast.thatmovieapp.domain.repository.MovieRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent
@@ -18,15 +20,15 @@ abstract class BaseViewModel() : ViewModel() {
     val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    private val _errorHandler: SingleLiveData<BaseException> = SingleLiveData()
-    val errorHandler: LiveData<BaseException> = _errorHandler
+    private val _errorHandler: SingleLiveData<Any> = SingleLiveData()
+    val errorHandler: LiveData<Any> = _errorHandler
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
 
     }
 
-    protected fun launchCoroutine(block: suspend () -> Unit) {
-        viewModelScope.launch(exceptionHandler) {
+    protected fun launchCoroutine(dispatcher: CoroutineDispatcher = Dispatchers.IO, block: suspend () -> Unit) {
+        viewModelScope.launch(dispatcher + exceptionHandler) {
             block()
         }
     }
@@ -50,7 +52,7 @@ abstract class BaseViewModel() : ViewModel() {
                     }
 
                     is Resource.Error -> {
-                        handleError(it.data as BaseException)
+                        handleError(it.error as BaseException)
                         _isLoading.postValue(false)
                     }
                 }

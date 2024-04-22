@@ -2,7 +2,7 @@ package com.freecast.thatmovieapp.presentation.onboarding
 
 import android.view.View
 import com.freecast.thatmovieapp.R
-import com.freecast.thatmovieapp.presentation.HomeFragment
+import com.freecast.thatmovieapp.presentation.home.HomeFragment
 import com.freecast.thatmovieapp.core.ui.BaseFragmentWithoutVM
 import com.google.android.material.button.MaterialButton
 

@@ -14,7 +14,9 @@ data class MovieModel(
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("original_title")
-    val originalTitle: String,
+    val originalTitle: String?,
+    @SerializedName("original_name")
+    val originalName: String?,
     @SerializedName("overview")
     val overview: String?,
     @SerializedName("popularity")
@@ -22,13 +24,18 @@ data class MovieModel(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String?,
+    @SerializedName("first_air_date")
+    val first_air_date: String?,
     @SerializedName("title")
-    val title: String,
+    val title: String?,
+    @SerializedName("name")
+    val name: String?,
     @SerializedName("video")
-    val video: Boolean,
+    val video: Boolean?,
     @SerializedName("vote_average")
     val voteAverage: Float,
     @SerializedName("vote_count")
     val voteCount: Int
+
 )

@@ -3,11 +3,11 @@ package com.freecast.thatmovieapp.data.remote
 import com.freecast.thatmovieapp.data.remote.interceptors.APILoggingInterceptor
 import com.freecast.thatmovieapp.data.remote.interceptors.ErrorInterceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MovieClient {
+    //ToDo: Use NDK to store API Key
     private const val BASE_URL = "https://api.themoviedb.org/3/"
     private const val API_KEY =
         "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMzVmMmMxNTY2YzZmMWU2OWM1MWVlZmIxNzkxOTkzOCIsInN1YiI6IjY2MWQ3NTZlZmQ0YTk2MDE4NjZjNjMyMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8qJvqhvn0SdU-Sq9pcs3Jviy__2mE6d9sep-roAHAfU"

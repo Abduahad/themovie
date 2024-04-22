@@ -10,7 +10,7 @@ data class MovieDetailModel(
     @SerializedName("belongs_to_collection")
     val belongsToCollection: Any?,
     @SerializedName("budget")
-    val budget: Int,
+    val budget: Int?,
     @SerializedName("genres")
     val genres: List<GenreModel>,
     @SerializedName("homepage")
@@ -25,6 +25,8 @@ data class MovieDetailModel(
     val originalLanguage: String?,
     @SerializedName("original_title")
     val originalTitle: String?,
+    @SerializedName("original_name")
+    val originalName: String?,
     @SerializedName("overview")
     val overview: String?,
     @SerializedName("popularity")
@@ -33,18 +35,22 @@ data class MovieDetailModel(
     val posterPath: String?,
     @SerializedName("release_date")
     val releaseDate: String?,
+    @SerializedName("first_air_date")
+    val first_air_date: String?,
     @SerializedName("revenue")
-    val revenue: Int,
+    val revenue: Int?,
     @SerializedName("runtime")
-    val runtime: Int,
+    val runtime: Int?,
     @SerializedName("status")
     val status: String?,
     @SerializedName("tagline")
     val tagline: String?,
     @SerializedName("title")
-    val title: String,
+    val title: String?,
+    @SerializedName("name")
+    val name: String?,
     @SerializedName("video")
-    val video: Boolean,
+    val video: Boolean?,
     @SerializedName("vote_average")
     val voteAverage: Float,
     @SerializedName("vote_count")

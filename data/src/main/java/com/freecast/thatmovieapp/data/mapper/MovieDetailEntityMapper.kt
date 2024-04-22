@@ -10,7 +10,7 @@ class MovieDetailEntityMapper : (MovieDetailModel) -> MovieDetailEntity {
             genres = GenreEntityMapper().invoke(GenreResult(movieDetailModel.genres)),
             id = movieDetailModel.id,
             imdbId = movieDetailModel.imdbId,
-            originalTitle = movieDetailModel.originalTitle,
+            originalTitle = if (movieDetailModel.originalTitle.isNullOrEmpty()) movieDetailModel.originalName else movieDetailModel.originalTitle,
             overview = movieDetailModel.overview,
             popularity = movieDetailModel.popularity,
             posterPath = movieDetailModel.posterPath,
@@ -19,7 +19,7 @@ class MovieDetailEntityMapper : (MovieDetailModel) -> MovieDetailEntity {
             runtime = movieDetailModel.runtime,
             status = movieDetailModel.status,
             tagline = movieDetailModel.tagline,
-            title = movieDetailModel.title,
+            title = if (movieDetailModel.title.isNullOrEmpty()) movieDetailModel.name else movieDetailModel.title,
             video = movieDetailModel.video,
             voteAverage = movieDetailModel.voteAverage,
             voteCount = movieDetailModel.voteCount
