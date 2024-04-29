@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            style="@style/EditText.Rounded"
+            android:drawableStart="@drawable/ic_search"
+            android:drawableEnd="@drawable/ic_microphone"
+            android:drawablePadding="8dp"
+            android:enabled="false"
+            android:fontFamily="@font/roboto_light"
+            android:hint="@string/main_search"
+            android:textColorHint="@color/white" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerNowPlayingMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="160dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerTopRatedMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="16dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerTrendingMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerUpcomingMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerTopRatedTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerGenresTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="16dp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerTrendingTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp" />
+    </LinearLayout>
+</ScrollView>
