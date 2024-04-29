@@ -1,4 +1,4 @@
-# FreeCast Challenge
+# Challenge
 
 - Last updated: 2024-04-19
 
